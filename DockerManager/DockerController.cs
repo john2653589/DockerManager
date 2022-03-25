@@ -227,7 +227,8 @@ namespace DockerManager
                 $"{SudoCmd} | sudo -S docker image rm {FullImageName}",
                 LoginCmd,
                 $"{SudoCmd} | sudo -S docker pull {FullImageName}",
-                $"{SudoCmd} | sudo -S docker run -d -p {SshSetting.DeployPort}:80 --name {ImageName} {FullImageName}",
+                $"{SudoCmd} | sudo -S docker run -d -p {SshSetting.DeployPort}:80 -p {SshSetting.DeploySslPort}:443 --name {ImageName} {FullImageName}",
+                $"{SudoCmd} | sudo -S docker logout {ServerSetting.Url}",
             };
 
             var LastMessage = "";

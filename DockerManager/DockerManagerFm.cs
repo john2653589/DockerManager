@@ -70,6 +70,7 @@ namespace DockerManager
             TxtSshIp.DataBindings.Clear();
             TxtSshPort.DataBindings.Clear();
             TxtSshDeployPort.DataBindings.Clear();
+            TxtSshDeploySslPort.DataBindings.Clear();
             TxtSshUserName.DataBindings.Clear();
             TxtSshPassword.DataBindings.Clear();
             CbIsDeploy.DataBindings.Clear();
@@ -77,6 +78,7 @@ namespace DockerManager
             TxtSshIp.DataBindings.Add("Text", CurrentSshModel, "Ip");
             TxtSshPort.DataBindings.Add("Text", CurrentSshModel, "Port");
             TxtSshDeployPort.DataBindings.Add("Text", CurrentSshModel, "DeployPort");
+            TxtSshDeploySslPort.DataBindings.Add("Text", CurrentSshModel, "DeploySslPort");
             TxtSshUserName.DataBindings.Add("Text", CurrentSshModel, "UserName");
             TxtSshPassword.DataBindings.Add("Text", CurrentSshModel, "Password");
             CbIsDeploy.DataBindings.Add("Checked", CurrentSshModel, "IsDeploy");

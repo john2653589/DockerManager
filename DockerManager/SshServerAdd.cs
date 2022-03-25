@@ -29,9 +29,11 @@ namespace DockerManager
             TxtIp.DataBindings.Add("Text", Source, "Ip");
             TxtPort.DataBindings.Add("Text", Source, "Port");
             TxtDeployPort.DataBindings.Add("Text", Source, "DeployPort");
+            TxtDeploySslPort.DataBindings.Add("Text", Source, "DeploySslPort");
             TxtUserName.DataBindings.Add("Text", Source, "UserName");
             TxtPassword.DataBindings.Add("Text", Source, "Password");
             CbIsDeploy.DataBindings.Add("Checked", Source, "IsDeploy");
+
         }
 
         private void BtnSshAdd_Click(object sender, EventArgs e)
@@ -48,19 +50,7 @@ namespace DockerManager
 
             if (string.IsNullOrWhiteSpace(Model.Ip))
                 IsError = IsError || ErrorAlert("Ip");
-
-            if (string.IsNullOrWhiteSpace(Model.Port))
-                IsError = IsError || ErrorAlert("Port");
-
-            if (string.IsNullOrWhiteSpace(Model.DeployPort))
-                IsError = IsError || ErrorAlert("DeployPort");
-
-            if (string.IsNullOrWhiteSpace(Model.UserName))
-                IsError = IsError || ErrorAlert("UserName");
-
-            if (string.IsNullOrWhiteSpace(Model.Password))
-                IsError = IsError || ErrorAlert("UserPassword");
-
+             
             if (IsError)
                 return;
 

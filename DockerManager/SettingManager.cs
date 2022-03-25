@@ -101,6 +101,7 @@ namespace DockerManager
             GetModel.Ip = Model.Ip;
             GetModel.Port = Model.Port;
             GetModel.DeployPort = Model.DeployPort;
+            GetModel.DeploySslPort = Model.DeploySslPort;
             GetModel.UserName = Model.UserName;
             GetModel.Password = Model.Password;
             GetModel.IsDeploy = Model.IsDeploy;

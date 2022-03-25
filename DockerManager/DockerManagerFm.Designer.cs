@@ -28,13 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DgImageDetail = new System.Windows.Forms.DataGridView();
+            this.ImageTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TagImageId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtnPush = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.BtnDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.BtnRefesh = new System.Windows.Forms.Button();
             this.DgImage = new System.Windows.Forms.DataGridView();
+            this.ImageName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ImageId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BtnSelectAll = new System.Windows.Forms.Button();
             this.CbServer = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -69,13 +76,7 @@
             this.TxtSshUserName = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.CbIsDeploy = new System.Windows.Forms.CheckBox();
-            this.ImageName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ImageId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ImageTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TagImageId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BtnPush = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.BtnDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.TxtSshDeploySslPort = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DgImageDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DgImage)).BeginInit();
             this.panel1.SuspendLayout();
@@ -102,6 +103,59 @@
             this.DgImageDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.DgImageDetail.Size = new System.Drawing.Size(494, 247);
             this.DgImageDetail.TabIndex = 0;
+            // 
+            // ImageTag
+            // 
+            this.ImageTag.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ImageTag.DataPropertyName = "ImageTag";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ImageTag.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ImageTag.DividerWidth = 1;
+            this.ImageTag.HeaderText = "ImageTag";
+            this.ImageTag.Name = "ImageTag";
+            this.ImageTag.ReadOnly = true;
+            // 
+            // TagImageId
+            // 
+            this.TagImageId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.TagImageId.DataPropertyName = "TagImageId";
+            this.TagImageId.HeaderText = "ImageId";
+            this.TagImageId.Name = "TagImageId";
+            this.TagImageId.ReadOnly = true;
+            // 
+            // BtnPush
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.NullValue = "Push";
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            this.BtnPush.DefaultCellStyle = dataGridViewCellStyle2;
+            this.BtnPush.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnPush.HeaderText = "Push";
+            this.BtnPush.Name = "BtnPush";
+            this.BtnPush.ReadOnly = true;
+            this.BtnPush.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BtnPush.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // BtnDelete
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.NullValue = "Delete";
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            this.BtnDelete.DefaultCellStyle = dataGridViewCellStyle3;
+            this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDelete.HeaderText = "Delete";
+            this.BtnDelete.Name = "BtnDelete";
+            this.BtnDelete.ReadOnly = true;
+            this.BtnDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BtnDelete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // BtnRefesh
             // 
@@ -133,6 +187,37 @@
             this.DgImage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.DgImage.Size = new System.Drawing.Size(494, 247);
             this.DgImage.TabIndex = 3;
+            // 
+            // ImageName
+            // 
+            this.ImageName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ImageName.DataPropertyName = "ImageName";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ImageName.DefaultCellStyle = dataGridViewCellStyle4;
+            this.ImageName.DividerWidth = 1;
+            this.ImageName.HeaderText = "ImageName";
+            this.ImageName.Name = "ImageName";
+            this.ImageName.ReadOnly = true;
+            // 
+            // CreateTime
+            // 
+            this.CreateTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CreateTime.DataPropertyName = "CreateTime";
+            this.CreateTime.DividerWidth = 1;
+            this.CreateTime.FillWeight = 50F;
+            this.CreateTime.HeaderText = "CreateTime";
+            this.CreateTime.Name = "CreateTime";
+            this.CreateTime.ReadOnly = true;
+            // 
+            // ImageId
+            // 
+            this.ImageId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ImageId.DataPropertyName = "ImageId";
+            this.ImageId.FillWeight = 50F;
+            this.ImageId.HeaderText = "ImageId";
+            this.ImageId.Name = "ImageId";
+            this.ImageId.ReadOnly = true;
             // 
             // BtnSelectAll
             // 
@@ -301,6 +386,7 @@
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.TxtSshDeploySslPort);
             this.panel2.Controls.Add(this.label13);
             this.panel2.Controls.Add(this.TxtSshDeployPort);
             this.panel2.Controls.Add(this.label12);
@@ -334,7 +420,7 @@
             // 
             this.TxtSshDeployPort.Location = new System.Drawing.Point(103, 114);
             this.TxtSshDeployPort.Name = "TxtSshDeployPort";
-            this.TxtSshDeployPort.Size = new System.Drawing.Size(170, 23);
+            this.TxtSshDeployPort.Size = new System.Drawing.Size(79, 23);
             this.TxtSshDeployPort.TabIndex = 19;
             // 
             // label12
@@ -462,89 +548,12 @@
             this.CbIsDeploy.Text = "Deploy";
             this.CbIsDeploy.UseVisualStyleBackColor = true;
             // 
-            // ImageName
+            // TxtSshDeploySslPort
             // 
-            this.ImageName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ImageName.DataPropertyName = "ImageName";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ImageName.DefaultCellStyle = dataGridViewCellStyle4;
-            this.ImageName.DividerWidth = 1;
-            this.ImageName.HeaderText = "ImageName";
-            this.ImageName.Name = "ImageName";
-            this.ImageName.ReadOnly = true;
-            // 
-            // CreateTime
-            // 
-            this.CreateTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CreateTime.DataPropertyName = "CreateTime";
-            this.CreateTime.DividerWidth = 1;
-            this.CreateTime.FillWeight = 50F;
-            this.CreateTime.HeaderText = "CreateTime";
-            this.CreateTime.Name = "CreateTime";
-            this.CreateTime.ReadOnly = true;
-            // 
-            // ImageId
-            // 
-            this.ImageId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ImageId.DataPropertyName = "ImageId";
-            this.ImageId.FillWeight = 50F;
-            this.ImageId.HeaderText = "ImageId";
-            this.ImageId.Name = "ImageId";
-            this.ImageId.ReadOnly = true;
-            // 
-            // ImageTag
-            // 
-            this.ImageTag.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ImageTag.DataPropertyName = "ImageTag";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ImageTag.DefaultCellStyle = dataGridViewCellStyle1;
-            this.ImageTag.DividerWidth = 1;
-            this.ImageTag.HeaderText = "ImageTag";
-            this.ImageTag.Name = "ImageTag";
-            this.ImageTag.ReadOnly = true;
-            // 
-            // TagImageId
-            // 
-            this.TagImageId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.TagImageId.DataPropertyName = "TagImageId";
-            this.TagImageId.HeaderText = "ImageId";
-            this.TagImageId.Name = "TagImageId";
-            this.TagImageId.ReadOnly = true;
-            // 
-            // BtnPush
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.NullValue = "Push";
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            this.BtnPush.DefaultCellStyle = dataGridViewCellStyle2;
-            this.BtnPush.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnPush.HeaderText = "Push";
-            this.BtnPush.Name = "BtnPush";
-            this.BtnPush.ReadOnly = true;
-            this.BtnPush.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BtnPush.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // BtnDelete
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.NullValue = "Delete";
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            this.BtnDelete.DefaultCellStyle = dataGridViewCellStyle3;
-            this.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnDelete.HeaderText = "Delete";
-            this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.ReadOnly = true;
-            this.BtnDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BtnDelete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TxtSshDeploySslPort.Location = new System.Drawing.Point(194, 114);
+            this.TxtSshDeploySslPort.Name = "TxtSshDeploySslPort";
+            this.TxtSshDeploySslPort.Size = new System.Drawing.Size(79, 23);
+            this.TxtSshDeploySslPort.TabIndex = 20;
             // 
             // DockerManagerFm
             // 
@@ -620,5 +629,6 @@
         private DataGridViewTextBoxColumn ImageName;
         private DataGridViewTextBoxColumn CreateTime;
         private DataGridViewTextBoxColumn ImageId;
+        private TextBox TxtSshDeploySslPort;
     }
 }

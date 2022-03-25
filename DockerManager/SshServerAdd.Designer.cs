@@ -42,6 +42,7 @@
             this.TxtDeployPort = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.CbIsDeploy = new System.Windows.Forms.CheckBox();
+            this.TxtDeploySslPort = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // TxtSshServerName
@@ -138,7 +139,7 @@
             // 
             this.TxtDeployPort.Location = new System.Drawing.Point(43, 207);
             this.TxtDeployPort.Name = "TxtDeployPort";
-            this.TxtDeployPort.Size = new System.Drawing.Size(170, 23);
+            this.TxtDeployPort.Size = new System.Drawing.Size(74, 23);
             this.TxtDeployPort.TabIndex = 36;
             // 
             // label6
@@ -146,9 +147,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(43, 183);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 15);
+            this.label6.Size = new System.Drawing.Size(131, 15);
             this.label6.TabIndex = 37;
-            this.label6.Text = "Deploy Port";
+            this.label6.Text = "Deploy Port / SSL Port";
             // 
             // CbIsDeploy
             // 
@@ -160,11 +161,19 @@
             this.CbIsDeploy.Text = "Deploy";
             this.CbIsDeploy.UseVisualStyleBackColor = true;
             // 
+            // TxtDeploySslPort
+            // 
+            this.TxtDeploySslPort.Location = new System.Drawing.Point(137, 207);
+            this.TxtDeploySslPort.Name = "TxtDeploySslPort";
+            this.TxtDeploySslPort.Size = new System.Drawing.Size(76, 23);
+            this.TxtDeploySslPort.TabIndex = 39;
+            // 
             // SshServerAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(256, 419);
+            this.Controls.Add(this.TxtDeploySslPort);
             this.Controls.Add(this.CbIsDeploy);
             this.Controls.Add(this.TxtDeployPort);
             this.Controls.Add(this.label6);
@@ -202,5 +211,6 @@
         private TextBox TxtDeployPort;
         private Label label6;
         private CheckBox CbIsDeploy;
+        private TextBox TxtDeploySslPort;
     }
 }
