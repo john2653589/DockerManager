@@ -158,7 +158,6 @@ namespace DockerManager
                         PullAndDeploy(ImageName, FullImageName, SettingModel, SshSettingModel, AlertAction, MessageFm);
                     else
                         MessageFm.Invoke(() => MessageFm.ExitFm());
-
                 }
             };
             CmdProcess.ErrorDataReceived += (sender, e) =>
