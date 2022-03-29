@@ -115,6 +115,9 @@ namespace DockerManager
             var FullImageName = ImageName;
             ImageName = ImageName.Split(':')[0].Split('/').Last();
 
+            var MessageFm = new MsgFm();
+            MessageFm.Show();
+
             var CmdProcess = new Process()
             {
                 StartInfo = new ProcessStartInfo()
@@ -127,25 +130,35 @@ namespace DockerManager
                     CreateNoWindow = true
                 },
             };
+            CmdProcess.Start();
 
-            var MessageFm = new MsgFm();
-            CmdProcess.OutputDataReceived += (sender, e) =>
+            CmdProcess.BeginOutputReadLine();
+            CmdProcess.BeginErrorReadLine();
+            var Input = CmdProcess.StandardInput;
+            var IsComplate = false;
+            CmdProcess.OutputDataReceived += async (sender, e) =>
             {
                 var Message = e.Data;
-
                 if (string.IsNullOrWhiteSpace(Message))
                     return;
                 MessageFm.SendMessage($"Message : {Message}");
                 if (Message != null && Message.Contains("latest: digest"))
                 {
+                    Input.WriteLine($"docker image rm {FullImageName}");
+                    IsComplate = true;
+                }
+                if (IsComplate)
+                {
                     MessageFm.SendMessage("推送成功");
+                    await Task.Delay(1000);
                     CmdProcess.Close();
                     CmdProcess.Dispose();
 
                     if (SshSettingModel.IsDeploy)
                         PullAndDeploy(ImageName, FullImageName, SettingModel, SshSettingModel, AlertAction, MessageFm);
                     else
-                        MessageFm.ExitFm();
+                        MessageFm.Invoke(() => MessageFm.ExitFm());
+
                 }
             };
             CmdProcess.ErrorDataReceived += (sender, e) =>
@@ -155,32 +168,15 @@ namespace DockerManager
                     return;
                 MessageFm.SendMessage($"Error : {Message}");
             };
-            MessageFm.Show();
-
-            CmdProcess.Start();
-            CmdProcess.BeginOutputReadLine();
-            CmdProcess.BeginErrorReadLine();
-
-            var Input = CmdProcess.StandardInput;
 
             Input.WriteLine(@"cd c:\");
 
             if (!FullImageName.Contains(FullUrl))
             {
                 var TagImageName = $"{FullUrl}/{FullImageName}";
+                Input.WriteLine($"docker image rm {TagImageName}");
                 Input.WriteLine($"docker tag {ImageName} {TagImageName}");
                 FullImageName = TagImageName;
-
-                var RefreshNum = 6;
-                await Task.Run(async () =>
-                {
-                    while (RefreshNum > 0)
-                    {
-                        RefreshAction.Invoke();
-                        RefreshNum--;
-                        await Task.Delay(500);
-                    }
-                });
             }
 
             if (SettingModel.UserName != null)
