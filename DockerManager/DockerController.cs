@@ -136,6 +136,7 @@ namespace DockerManager
             CmdProcess.BeginErrorReadLine();
             var Input = CmdProcess.StandardInput;
             var IsComplate = false;
+            var IsDeployStart = false;
             CmdProcess.OutputDataReceived += async (sender, e) =>
             {
                 var Message = e.Data;
@@ -147,8 +148,9 @@ namespace DockerManager
                     Input.WriteLine($"docker image rm {FullImageName}");
                     IsComplate = true;
                 }
-                if (IsComplate)
+                if (IsComplate && !IsDeployStart)
                 {
+                    IsDeployStart = true;
                     MessageFm.SendMessage("推送成功");
                     await Task.Delay(1000);
                     CmdProcess.Close();
@@ -157,7 +159,8 @@ namespace DockerManager
                     if (SshSettingModel.IsDeploy)
                         PullAndDeploy(ImageName, FullImageName, SettingModel, SshSettingModel, AlertAction, MessageFm);
                     else
-                        MessageFm.Invoke(() => MessageFm.ExitFm());
+                        MessageFm.ExitFm();
+
                 }
             };
             CmdProcess.ErrorDataReceived += (sender, e) =>
@@ -251,7 +254,7 @@ namespace DockerManager
                 await Task.Delay(1000);
             }
 
-            MessageFm.ExitFm();
+            MessageFm?.ExitFm();
             if (!string.IsNullOrWhiteSpace(LastMessage))
                 AlertAction("發佈成功");
             else

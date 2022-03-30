@@ -30,11 +30,19 @@ namespace DockerManager
 
         public void ExitFm()
         {
-            Invoke(() =>
+            if (InvokeRequired)
+            {
+                Invoke(() =>
+                {
+                    Close();
+                    Dispose();
+                });
+            }
+            else
             {
                 Close();
                 Dispose();
-            });
+            }
         }
     }
 }
