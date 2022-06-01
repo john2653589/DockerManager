@@ -53,15 +53,18 @@ namespace DockerManager
         private void RefreshSetting(SettingModel Model)
         {
             CurrentModel = Model;
+
             TxtUrl.DataBindings.Clear();
+            TxtTag.DataBindings.Clear();
+            TxtOwner.DataBindings.Clear();
             TxtUserName.DataBindings.Clear();
             TxtUserToken.DataBindings.Clear();
-            TxtOwner.DataBindings.Clear();
 
             TxtUrl.DataBindings.Add("Text", CurrentModel, "Url");
+            TxtTag.DataBindings.Add("Text", CurrentModel, "Tag");
+            TxtOwner.DataBindings.Add("Text", CurrentModel, "Owner");
             TxtUserName.DataBindings.Add("Text", CurrentModel, "UserName");
             TxtUserToken.DataBindings.Add("Text", CurrentModel, "UserToken");
-            TxtOwner.DataBindings.Add("Text", CurrentModel, "Owner");
         }
 
         private void RefreshSshSetting(SshSettingModel Model)
@@ -96,7 +99,8 @@ namespace DockerManager
                     PushImage(ImageTag!);
                     break;
                 case "Delete":
-                    await DeleteImage(ImageTag!, ImageId!);
+                    //await DeleteImage(ImageTag!, ImageId!);
+                    await DeleteTag(ImageTag);
                     break;
             }
         }
@@ -123,20 +127,27 @@ namespace DockerManager
             await RefreshImage();
         }
 
-        private async void BtnSelectAll_Click(object sender, EventArgs e)
-        {
-            await RefreshImageDetail();
-        }
-
         private async Task RefreshImage()
         {
             DgImage.DataSource = await Docker.GetImages();
         }
-        private async Task RefreshImageDetail(string? ImageId = null)
+        private async Task RefreshImageDetail(string ImageId = null)
         {
             DgImageDetail.DataSource = await Docker.GetImageDetail(ImageId);
             DgImageDetail.ClearSelection();
         }
+
+        private async Task DeleteTag(string ImageNameTag)
+        {
+            var Msg = $"確定要刪除 {ImageNameTag} 嗎?";
+            if (MessageBox.Show(Msg, "確認刪除", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                var IsDelete = await Docker.DeleteImage(ImageNameTag);
+                if (IsDelete)
+                    await RefreshImage();
+            }
+        }
+
         private async Task DeleteImage(string ImageNameTag, string ImageId)
         {
             var Msg = $"確定要刪除 {ImageNameTag} 嗎?";

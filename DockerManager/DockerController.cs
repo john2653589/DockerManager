@@ -33,7 +33,7 @@ namespace DockerManager
             var Ret = ImageList
                 .Select(Item =>
                 {
-                    var Tag = Item.RepoTags?.OrderBy(Val => Val.Length)?.FirstOrDefault();
+                    var Tag = Item.RepoTags?.Reverse()?.FirstOrDefault();
                     var Dig = Item.RepoDigests?.FirstOrDefault()?.Split('@')[0];
                     var ImageName = Tag ?? Dig ?? "Not Found Name";
                     var GetData = new
@@ -176,6 +176,11 @@ namespace DockerManager
             if (!FullImageName.Contains(FullUrl))
             {
                 var TagImageName = $"{FullUrl}/{FullImageName}";
+                if (!string.IsNullOrWhiteSpace(SettingModel.Tag))
+                {
+                    TagImageName = TagImageName.Split(':')[0];
+                    TagImageName = $"{TagImageName}:{SettingModel.Tag}";
+                }
                 Input.WriteLine($"docker image rm {TagImageName}");
                 Input.WriteLine($"docker tag {ImageName} {TagImageName}");
                 FullImageName = TagImageName;

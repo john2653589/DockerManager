@@ -28,6 +28,8 @@ namespace DockerManager
             };
             TxtServerName.DataBindings.Add("Text", Source, "ServerName");
             TxtUrl.DataBindings.Add("Text", Source, "Url");
+            TxtTag.DataBindings.Add("Text", Source, "Tag");
+            TxtOwner.DataBindings.Add("Text", Source, "Owner");
             TxtUserName.DataBindings.Add("Text", Source, "UserName");
             TxtUserToken.DataBindings.Add("Text", Source, "UserToken");
         }
