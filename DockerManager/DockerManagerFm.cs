@@ -100,7 +100,7 @@ namespace DockerManager
                     break;
                 case "Delete":
                     //await DeleteImage(ImageTag!, ImageId!);
-                    await DeleteTag(ImageTag);
+                    await DeleteTag(ImageTag, ImageId);
                     break;
             }
         }
@@ -137,11 +137,13 @@ namespace DockerManager
             DgImageDetail.ClearSelection();
         }
 
-        private async Task DeleteTag(string ImageNameTag)
+        private async Task DeleteTag(string ImageNameTag, string ImageId)
         {
             var Msg = $"確定要刪除 {ImageNameTag} 嗎?";
             if (MessageBox.Show(Msg, "確認刪除", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                if (ImageNameTag.ToLower().Contains("none"))
+                    ImageNameTag = ImageId;
                 var IsDelete = await Docker.DeleteImage(ImageNameTag);
                 if (IsDelete)
                     await RefreshImage();
