@@ -104,9 +104,13 @@ namespace DockerManager
 
             var FullUrl = $"{SettingModel.Url}";
             if (GetOwner != null)
-                FullUrl += $"/{GetOwner}";
+            {
+                if (!string.IsNullOrWhiteSpace(FullUrl))
+                    FullUrl += "/";
+                FullUrl += GetOwner;
+            }
 
-            if (ImageName.Contains('/') && !ImageName.Contains(FullUrl))
+            if (FullUrl.Contains("/") && !ImageName.Contains(FullUrl))
             {
                 AlertAction.Invoke($"發佈失敗，錯誤訊息：{ImageName} 已被標記至別的 Server，請使用原始 Image");
                 return;
