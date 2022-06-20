@@ -110,11 +110,11 @@ namespace DockerManager
                 FullUrl += GetOwner;
             }
 
-            if (FullUrl.Contains("/") && !ImageName.Contains(FullUrl))
-            {
-                AlertAction.Invoke($"發佈失敗，錯誤訊息：{ImageName} 已被標記至別的 Server，請使用原始 Image");
-                return;
-            }
+            //if (FullUrl.Contains("/") && !ImageName.Contains(FullUrl))
+            //{
+            //    AlertAction.Invoke($"發佈失敗，錯誤訊息：{ImageName} 已被標記至別的 Server，請使用原始 Image");
+            //    return;
+            //}
 
             var FullImageName = ImageName;
             ImageName = ImageName.Split(':')[0].Split('/').Last();
