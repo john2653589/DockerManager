@@ -98,7 +98,7 @@ namespace DockerManager
 
             return Ret.Count > 0;
         }
-        public async void PushImage(string ImageName, SettingModel SettingModel, SshSettingModel SshSettingModel, Action<string> AlertAction, Action RefreshAction)
+        public void PushImage(string ImageName, SettingModel SettingModel, SshSettingModel SshSettingModel, Action<string> AlertAction, Action RefreshAction)
         {
             var GetOwner = string.IsNullOrWhiteSpace(SettingModel.Owner) ? SettingModel.UserName : SettingModel.Owner;
 
@@ -119,9 +119,6 @@ namespace DockerManager
             var FullImageName = ImageName;
             ImageName = ImageName.Split(':')[0].Split('/').Last();
 
-            var MessageFm = new MsgFm();
-            MessageFm.Show();
-
             var CmdProcess = new Process()
             {
                 StartInfo = new ProcessStartInfo()
@@ -134,6 +131,15 @@ namespace DockerManager
                     CreateNoWindow = true
                 },
             };
+
+            var MessageFm = new MsgFm();
+            MessageFm.OnFormExit += () =>
+            {
+                CmdProcess.Kill();
+                CmdProcess.Dispose();
+            };
+
+            MessageFm.Show();
             CmdProcess.Start();
 
             CmdProcess.BeginOutputReadLine();
@@ -157,14 +163,10 @@ namespace DockerManager
                     IsDeployStart = true;
                     MessageFm.SendMessage("推送成功");
                     await Task.Delay(1000);
-                    CmdProcess.Close();
-                    CmdProcess.Dispose();
-
                     if (SshSettingModel.IsDeploy)
                         PullAndDeploy(ImageName, FullImageName, SettingModel, SshSettingModel, AlertAction, MessageFm);
                     else
                         MessageFm.ExitFm();
-
                 }
             };
             CmdProcess.ErrorDataReceived += (sender, e) =>
@@ -206,9 +208,9 @@ namespace DockerManager
         {
             MessageFm.SendMessage($"\n\n開始部署\n\n");
 
-            var Auth = new PasswordAuthenticationMethod(SshSetting.UserName, SshSetting.Password);
+            using var Auth = new PasswordAuthenticationMethod(SshSetting.UserName, SshSetting.Password);
             var SshInfo = new ConnectionInfo(SshSetting.Ip, int.Parse(SshSetting.Port), SshSetting.UserName, Auth);
-            var SshClient = new SshClient(SshInfo);
+            using var SshClient = new SshClient(SshInfo);
 
             SshClient.Connect();
 
@@ -242,7 +244,7 @@ namespace DockerManager
             var LastError = "";
             foreach (var CmdLine in SshCommandLines)
             {
-                var CmdRun = SshClient.RunCommand(CmdLine);
+                using var CmdRun = SshClient.RunCommand(CmdLine);
 
                 LastMessage = CmdRun.Result;
                 LastError = CmdRun.Error;

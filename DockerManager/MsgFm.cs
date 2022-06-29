@@ -12,9 +12,15 @@ namespace DockerManager
 {
     public partial class MsgFm : Form
     {
+        public event Action OnFormExit;
         public MsgFm()
         {
             InitializeComponent();
+
+            FormClosed += (s, e) =>
+            {
+                OnFormExit?.Invoke();
+            };
         }
 
         public void SendMessage(string Message)
@@ -27,6 +33,7 @@ namespace DockerManager
                 MsgTxt.ScrollToCaret();
             });
         }
+
 
         public void ExitFm()
         {
