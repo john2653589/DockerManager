@@ -184,8 +184,7 @@ namespace DockerManager
                 var TagImageName = $"{FullUrl}/{FullImageName}";
                 if (!string.IsNullOrWhiteSpace(SettingModel.Tag))
                 {
-                    TagImageName = TagImageName.Split(':')[0];
-                    TagImageName = $"{TagImageName}:{SettingModel.Tag}";
+                    TagImageName = TagImageName.Replace(":latest", $":{SettingModel.Tag}");
                 }
                 Input.WriteLine($"docker image rm {TagImageName}");
                 Input.WriteLine($"docker tag {ImageName} {TagImageName}");
@@ -234,11 +233,21 @@ namespace DockerManager
                 $"{SudoCmd} | sudo -S docker kill {ImageName}",
                 $"{SudoCmd} | sudo -S docker rm {ImageName}",
                 $"{SudoCmd} | sudo -S docker image rm {FullImageName}",
-                LoginCmd,
-                $"{SudoCmd} | sudo -S docker pull {FullImageName}",
-                $"{SudoCmd} | sudo -S docker run -d -p {SshSetting.DeployPort}:80 -p {SshSetting.DeploySslPort}:443 --name {ImageName} {FullImageName}",
-                $"{SudoCmd} | sudo -S docker logout {ServerSetting.Url}",
             };
+            if(!string.IsNullOrWhiteSpace( ServerSetting.UserName))
+            {
+                SshCommandLines.Add(LoginCmd);
+            }
+            SshCommandLines.Add($"docker pull {FullImageName}");
+
+            var DeployPortString = $"{SudoCmd} | sudo -S docker run -d -p {SshSetting.DeployPort}:80 ";
+            if(!string.IsNullOrWhiteSpace(SshSetting.DeploySslPort))
+            {
+                DeployPortString += $"-p {SshSetting.DeploySslPort}:443 ";
+            }
+            DeployPortString += $" --name {ImageName} --restart=always {FullImageName} ";
+            SshCommandLines.Add(DeployPortString);
+            SshCommandLines.Add($"{SudoCmd} | sudo -S docker logout {ServerSetting.Url}");
 
             var LastMessage = "";
             var LastError = "";
